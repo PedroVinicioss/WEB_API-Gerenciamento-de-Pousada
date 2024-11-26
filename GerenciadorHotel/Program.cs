@@ -1,4 +1,13 @@
+using GerenciadorHotel.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseInMemoryDatabase("GerenciadorHotelDb");
+});
+
 
 // Add services to the container.
 

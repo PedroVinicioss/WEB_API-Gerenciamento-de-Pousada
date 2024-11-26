@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GerenciadorHotel.Persistence;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.Controllers;
 
@@ -6,24 +7,36 @@ namespace GerenciadorHotel.Controllers;
 [Route("api/calendaries")]
 public class CalendariesController : ControllerBase
 {
+    private readonly AppDbContext _context;
+
+    public CalendariesController(AppDbContext context)
+    {
+        _context = context;
+    }
+    
     // GET
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok();
+        var calendars = _context.Calendars.Where(p => !p.IsDeleted).ToList();
+        return Ok(calendars);
     }
 
     // GET
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        return Ok();
+        var calendar = _context.Calendars.FirstOrDefault(p => p.Id == id && !p.IsDeleted);
+        if (calendar is null) { return NotFound(); }
+        
+        return Ok(calendar);
     }
     
     // POST
     [HttpPost]
     public IActionResult Post()
     {
+        
         return Ok();
     }
     

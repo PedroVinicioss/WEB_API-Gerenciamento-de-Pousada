@@ -17,6 +17,7 @@ public class Room : BaseEntity
         Type = type;
         
         Reservations = [];
+        Calendars = [];
     }
     
     public string RoomName { get; private set; }
@@ -27,15 +28,17 @@ public class Room : BaseEntity
     public RoomTypeEnum Type { get; private set; }
 
     public List<Reservation> Reservations { get; private set; }
+    public List<Calendary> Calendars { get; private set; }
     
-    public void Update(string roomName, string description, bool IsAvailable, decimal daylyValue, int capacity, RoomTypeEnum type)
+    public void Update(string roomName, string description, bool isAvailable, decimal daylyValue, int capacity, RoomTypeEnum type, Calendary calendary)
     {
         RoomName = roomName;
         Description = description;
-        IsAvailable = IsAvailable;
+        IsAvailable = isAvailable;
         DaylyValue = daylyValue;
         Capacity = capacity;
         Type = type;
+        Calendars.Add(calendary);
     }
     
     public void SetAsAvailable()
