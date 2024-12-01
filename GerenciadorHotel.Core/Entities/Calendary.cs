@@ -4,12 +4,11 @@ public class Calendary : BaseEntity
 {
     protected Calendary() { }
     
-    public Calendary(int idRoom, DateTime date, bool isAvailable, int? idReservation) : base()
+    public Calendary(int idRoom, DateTime date, bool isAvailable) : base()
     {
         IdRoom = idRoom;
         Date = date;
         IsAvailable = true;
-        IdReservation = idReservation;
     }
     
     public int IdRoom { get; private set; }
@@ -25,5 +24,17 @@ public class Calendary : BaseEntity
         Date = date;
         IsAvailable = isAvailable;
         IdReservation = idReservation;
+    }
+    
+    public void MarkAsReserved(int idReservation)
+    {
+        IsAvailable = false;
+        IdReservation = idReservation;
+    }
+
+    public void MarkAsAvailable()
+    {
+        IsAvailable = true;
+        IdReservation = null;
     }
 }
