@@ -11,7 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //services 
 builder.Services.AddScoped<CalendaryService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 
