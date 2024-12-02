@@ -1,3 +1,4 @@
+using GerenciadorHotel.Application.Services;
 using GerenciadorHotel.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseInMemoryDatabase("GerenciadorHotelDb");
 });
+
+//services 
+builder.Services.AddScoped<CalendaryService>();
 
 
 // Add services to the container.

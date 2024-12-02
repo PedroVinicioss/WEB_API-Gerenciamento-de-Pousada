@@ -1,4 +1,4 @@
-﻿using GerenciadorHotel.Infrastructure.Persistence;
+﻿using GerenciadorHotel.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -7,50 +7,29 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/calendars")]
 public class CalendarsController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly CalendaryService _calendaryService;
 
-    public CalendarsController(AppDbContext context)
+    public CalendarsController(CalendaryService calendaryService)
     {
-        _context = context;
+        _calendaryService = calendaryService;
     }
     
-    // GET
+    [HttpPost("generate")]
+    public IActionResult GenerateCalendary(int roomId, DateTime startDate, DateTime endDate)
+    {
+        if (startDate > endDate)
+        {
+            return BadRequest("A data de início não pode ser maior que a data de término.");
+        }
+
+        _calendaryService.GenerateCalendaryForRoom(roomId, startDate, endDate);
+        return Ok("Calendário gerado com sucesso.");
+    }
+    
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetCalendary(int roomId)
     {
-        var calendars = _context.Calendars.Where(p => !p.IsDeleted).ToList();
-        return Ok(calendars);
-    }
-
-    // GET
-    [HttpGet("{id}")]
-    public IActionResult GetById(int id)
-    {
-        var calendar = _context.Calendars.FirstOrDefault(p => p.Id == id && !p.IsDeleted);
-        if (calendar is null) { return NotFound(); }
-        
-        return Ok(calendar);
-    }
-    
-    // POST
-    [HttpPost]
-    public IActionResult Post()
-    {
-        
-        return Ok();
-    }
-    
-    // PUT
-    [HttpPut("{id}")]
-    public IActionResult Put(int id)
-    {
-        return Ok();
-    }
-    
-    // DELETE
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
-    {
-        return Ok();
+        var calendary = _calendaryService.GetCalendaryForRoom(roomId);
+        return Ok(calendary);
     }
 }
