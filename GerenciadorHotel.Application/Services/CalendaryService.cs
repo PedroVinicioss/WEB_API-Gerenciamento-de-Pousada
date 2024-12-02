@@ -3,7 +3,7 @@ using GerenciadorHotel.Infrastructure.Persistence;
 
 namespace GerenciadorHotel.Application.Services;
 
-public class CalendaryService
+public class CalendaryService : ICalendaryService
 {
     private readonly AppDbContext _context;
     

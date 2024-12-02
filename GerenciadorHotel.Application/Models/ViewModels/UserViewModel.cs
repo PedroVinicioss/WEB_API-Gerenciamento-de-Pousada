@@ -25,8 +25,8 @@ public class UserViewModel
         BirthDate = birthDate;
         Sex = sex;
         Role = role;
-        Reservations = reservations.Select(ReservationViewModel.FromEntity).ToList();
-        Partners = partners.Select(PartnerViewModel.FromEntity).ToList();
+        Reservations = reservations?.Select(ReservationViewModel.FromEntity).ToList() ?? new List<ReservationViewModel>();
+        Partners = partners?.Select(PartnerViewModel.FromEntity).ToList() ?? new List<PartnerViewModel>();
     }
 
     public int Id { get; set; }

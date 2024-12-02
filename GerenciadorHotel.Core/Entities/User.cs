@@ -6,7 +6,7 @@ public class User : BaseEntity
 {
     protected User() { }
 
-    public User(string fullName, string email, string hashPassword, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, bool active, RoleEnum role)
+    public User(string fullName, string email, string hashPassword, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, RoleEnum role = RoleEnum.Customer)
         : base()
     {
         FullName = fullName;
@@ -62,26 +62,26 @@ public class User : BaseEntity
     public List<Partner> Partners { get; private set; }
     
     
-    public void Update(string fullName, string email, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, bool active, RoleEnum role)
+    public void Update(User user)
     {
-        FullName = fullName;
-        Email = email;
-        Phone = phone;
-        MobilePhone = mobilePhone;
-        Cpf = cpf;
-        Rg = rg;
-        Profession = profession;
-        PostalCode = postalCode;
-        City = city;
-        State = state;
-        Country = country;
-        Address = address;
-        Neighborhood = neighborhood;
-        Number = number;
-        AddressComplement = addressComplement;
-        BirthDate = birthDate;
-        BiologicalSex = biologicalSex;
-        Active = active;
-        Role = role;
+        FullName = user.FullName;
+        Email = user.Email;
+        Phone = user.Phone;
+        MobilePhone = user.MobilePhone;
+        Cpf = user.Cpf;
+        Rg = user.Rg;
+        Profession = user.Profession;
+        PostalCode = user.PostalCode;
+        City = user.City;
+        State = user.State;
+        Country = user.Country;
+        Address = user.Address;
+        Neighborhood = user.Neighborhood;
+        Number = user.Number;
+        AddressComplement = user.AddressComplement;
+        BirthDate = user.BirthDate;
+        BiologicalSex = user.BiologicalSex;
+        Role = user.Role;
     }
+
 }
