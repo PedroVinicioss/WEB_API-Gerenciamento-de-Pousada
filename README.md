@@ -132,7 +132,7 @@ Este projeto está sob a licença MIT. Sinta-se à vontade para usar, modificar 
 
 ## ✨ **Contato**
 
-👨‍💻 Desenvolvedor: **Pedro Vinícius**  
+👨‍💻 Desenvolvedor: **Pedro Vinicios**  
 📧 Email: [pedrooviniciossantos@gmail.com](mailto:pedrooviniciossantos.dev@gmail.com)  
 🔗 LinkedIn: [linkedin.com/in/pedrovinicioss](https://www.linkedin.com/in/pedrovinicioss)  
 
