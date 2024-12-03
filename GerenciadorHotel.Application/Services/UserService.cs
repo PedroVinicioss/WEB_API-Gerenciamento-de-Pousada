@@ -27,7 +27,7 @@ public class UserService : IUserService
 
     public ResultViewModel<UserViewModel> GetById(int id)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Id == id);
+        var user = _context.Users.SingleOrDefault(u => u.Id == id);
         if(user is null)
             return ResultViewModel<UserViewModel>.Error("Usuário não encontrado");
         

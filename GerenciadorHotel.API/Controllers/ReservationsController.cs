@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GerenciadorHotel.Application.Models.InputModels;
+using GerenciadorHotel.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
 
@@ -6,38 +8,62 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/reservations")]
 public class ReservationsController : ControllerBase
 {
+    private IReservationService _reservationService;
+    
+    public ReservationsController(IReservationService reservationService)
+    {
+        _reservationService = reservationService;
+    }
+    
     // GET
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok();
+        var results = _reservationService.GetAll();
+        return Ok(results);
     }
     
     // GET
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        return Ok();
+        var result = _reservationService.GetById(id);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return Ok(result);
     }
     
     // POST
     [HttpPost]
-    public IActionResult Post()
+    public IActionResult Post(CreateReservationInputModel model)
     {
-        return Ok();
+        var result = _reservationService.Insert(model);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
     }
     
     // PUT
-    [HttpPut("{id}")]
-    public IActionResult Put(int id)
+    [HttpPut]
+    public IActionResult Put(UpdateReservationInputModel model)
     {
-        return Ok();
+        var result = _reservationService.Update(model);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return NoContent();
     }
     
     // DELETE
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        return Ok();
+        var result = _reservationService.Delete(id);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return NoContent();
     }
 }
