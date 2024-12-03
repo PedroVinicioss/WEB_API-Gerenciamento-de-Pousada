@@ -26,14 +26,13 @@ public class Product : BaseEntity
     public ProductCategoryEnum Category { get; private set; }
     public List<Consumption> Consumptions { get; private set; }
     
-    public void Update(string name, string description, decimal price, bool isAvailable, ProductCategoryEnum category, Consumption consumption, int stock)
+    public void Update(string name, string description, decimal price, bool isAvailable, ProductCategoryEnum category, int stock)
     {
         Name = name;
         Description = description;
         Price = price;
         IsAvailable = isAvailable;
         Category = category;
-        Consumptions.Add(consumption);
         Stock = stock;
     }
     
@@ -63,5 +62,10 @@ public class Product : BaseEntity
             SetAsUnavailable();
         }
         Stock -= quantity;
+    }
+    
+    public void AddConsumption(Consumption consumption)
+    {
+        Consumptions.Add(consumption);
     }
 }

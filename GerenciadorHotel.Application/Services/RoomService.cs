@@ -1,6 +1,7 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
+using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
 namespace GerenciadorHotel.Application.Services;
@@ -44,14 +45,15 @@ public class RoomService : IRoomService
         return ResultViewModel<int>.Success(room.Id);
     }
 
-    public ResultViewModel Update(UpdateRoomInputModel model)
+    public ResultViewModel Update(Room model)
     {
         var room = _context.Rooms.SingleOrDefault(r => r.Id == model.Id);
         if (room is null)
             return ResultViewModel.Error("Quarto não encontrado.");
         
-        room.Update(model.ToEntity());
+        room.Update(model);
         
+        _context.Rooms.Update(room);
         _context.SaveChanges();
         return ResultViewModel<RoomViewModel>.Success();
     }

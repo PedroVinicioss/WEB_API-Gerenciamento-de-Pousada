@@ -1,5 +1,6 @@
 ﻿using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Services;
+using GerenciadorHotel.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -46,7 +47,7 @@ public class UsersController : ControllerBase
     
     // PUT
     [HttpPut]
-    public IActionResult Put(UpdateUserInputModel model)
+    public IActionResult Put(User model)
     {
         var result = _userService.Update(model);
         if (!result.IsSuccess)

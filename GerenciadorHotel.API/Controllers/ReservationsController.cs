@@ -1,5 +1,6 @@
 ﻿using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Services;
+using GerenciadorHotel.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -47,7 +48,7 @@ public class ReservationsController : ControllerBase
     
     // PUT
     [HttpPut]
-    public IActionResult Put(UpdateReservationInputModel model)
+    public IActionResult Put(Reservation model)
     {
         var result = _reservationService.Update(model);
         if (!result.IsSuccess)

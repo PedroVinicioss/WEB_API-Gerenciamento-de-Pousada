@@ -5,11 +5,11 @@ using GerenciadorHotel.Core.Entities;
 
 namespace GerenciadorHotel.Application.Services;
 
-public interface IUserService
+public interface IProductService
 {
-    ResultViewModel<List<UserItemViewModel>> GetAll(string search = "");
-    ResultViewModel<UserViewModel> GetById(int id);
-    ResultViewModel<int> Insert(CreateUserInputModel model);
-    ResultViewModel Update(User model);
+    ResultViewModel<List<ProductViewModel>> GetAll(string search = "");
+    ResultViewModel<ProductViewModel> GetById(int id);
+    ResultViewModel<int> Insert(CreateProductInputModel model);
+    ResultViewModel Update(Product model);
     ResultViewModel Delete(int id);
 }

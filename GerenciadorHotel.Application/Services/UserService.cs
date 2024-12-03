@@ -46,13 +46,13 @@ public class UserService : IUserService
         return ResultViewModel<int>.Success(user.Id);
     }
 
-    public ResultViewModel Update(UpdateUserInputModel model)
+    public ResultViewModel Update(User model)
     {
         var user = _context.Users.SingleOrDefault(u => u.Id == model.Id);
         if(user is null)
             return ResultViewModel.Error("Usuário não encontrado");
         
-        user.Update(model.ToEntity());
+        user.Update(model);
         
         _context.Update(user);
         _context.SaveChanges();
