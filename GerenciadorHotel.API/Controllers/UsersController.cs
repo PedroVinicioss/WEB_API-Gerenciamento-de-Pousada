@@ -1,6 +1,4 @@
-﻿using GerenciadorHotel.Application.Models;
-using GerenciadorHotel.Application.Models.InputModels;
-using GerenciadorHotel.Application.Models.ViewModels;
+﻿using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +8,17 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/users")]
 public class UsersController : ControllerBase
 {
-    IUserService _service;
+    IUserService _userService;
     public UsersController(IUserService service)
     {
-        _service = service;
+        _userService = service;
     }
     
     // GET
     [HttpGet]
     public IActionResult GetAll()
     {
-        var results = _service.GetAll();
+        var results = _userService.GetAll();
         return Ok(results);
     }
     
@@ -28,7 +26,7 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var result = _service.GetById(id);
+        var result = _userService.GetById(id);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -39,7 +37,7 @@ public class UsersController : ControllerBase
     [HttpPost]
     public IActionResult Post(CreateUserInputModel model)
     {
-        var result = _service.Insert(model);
+        var result = _userService.Insert(model);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -50,7 +48,7 @@ public class UsersController : ControllerBase
     [HttpPut]
     public IActionResult Put(UpdateUserInputModel model)
     {
-        var result = _service.Update(model);
+        var result = _userService.Update(model);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -61,7 +59,7 @@ public class UsersController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var result = _service.Delete(id);
+        var result = _userService.Delete(id);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         

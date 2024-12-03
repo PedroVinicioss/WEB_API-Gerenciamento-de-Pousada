@@ -10,8 +10,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //services 
-builder.Services.AddScoped<CalendaryService>();
+builder.Services.AddScoped<ICalendaryService, CalendaryService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
 
 // Add services to the container.
 

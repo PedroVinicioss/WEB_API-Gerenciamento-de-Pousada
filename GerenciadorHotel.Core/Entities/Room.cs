@@ -6,12 +6,12 @@ public class Room : BaseEntity
 {
     protected Room() { }
 
-    public Room(string roomName, string description, decimal daylyValue, int capacity, RoomTypeEnum type)
+    public Room(string roomName, string description, bool isAvailable, decimal daylyValue, int capacity, RoomTypeEnum type)
         : base()
     {
         RoomName = roomName;
         Description = description;
-        IsAvailable = true;
+        IsAvailable = isAvailable;
         DaylyValue = daylyValue;
         Capacity = capacity;
         Type = type;
@@ -30,15 +30,14 @@ public class Room : BaseEntity
     public List<Reservation> Reservations { get; private set; }
     public List<Calendary> Calendars { get; private set; }
     
-    public void Update(string roomName, string description, bool isAvailable, decimal daylyValue, int capacity, RoomTypeEnum type, Calendary calendary)
+    public void Update(Room room)
     {
-        RoomName = roomName;
-        Description = description;
-        IsAvailable = isAvailable;
-        DaylyValue = daylyValue;
-        Capacity = capacity;
-        Type = type;
-        Calendars.Add(calendary);
+        RoomName = room.RoomName;
+        Description = room.Description;
+        IsAvailable = room.IsAvailable;
+        DaylyValue = room.DaylyValue;
+        Capacity = room.Capacity;
+        Type = room.Type;
     }
     
     public void SetAsAvailable()
