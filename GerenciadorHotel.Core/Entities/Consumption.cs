@@ -22,12 +22,12 @@ public class Consumption : BaseEntity
     public decimal Value { get; private set; }
     public DateTime ConsumptionDate { get; private set; }
     
-    public void Update(int idReservation, int idProduct, int quantity, decimal value, DateTime consumptionDate)
+    public void Update(Consumption consumption)
     {
-        IdReservation = idReservation;
-        IdProduct = idProduct;
-        Quantity = quantity;
-        Value = value;
-        ConsumptionDate = consumptionDate;
+        IdReservation = consumption.IdReservation;
+        IdProduct = consumption.IdProduct;
+        Quantity = consumption.Quantity;
+        Value = consumption.Value;
+        ConsumptionDate = consumption.ConsumptionDate;
     }
 }

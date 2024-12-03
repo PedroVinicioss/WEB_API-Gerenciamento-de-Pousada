@@ -16,6 +16,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IConsumptionService, ConsumptionService>();
 
 // Add services to the container.
 
