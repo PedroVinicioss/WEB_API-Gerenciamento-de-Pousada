@@ -11,12 +11,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //services 
-builder.Services.AddScoped<ICalendaryService, CalendaryService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IConsumptionService, ConsumptionService>();
+builder.Services.AddScoped<ICashService, CashService>();
+builder.Services.AddScoped<ICalendaryService, CalendaryService>();
 
 // Add services to the container.
 

@@ -25,14 +25,23 @@ public class Cash : BaseEntity
     public User Admin { get; private set; }
     public List<Reservation> Reservations { get; private set; }
     
-    public void Update(DateTime openingDate, DateTime closingDate, decimal totalRevenue, decimal totalExpenses, decimal totalCash, int idAdmin, Reservation reservation)
+    public void Update (Cash cash)
     {
-        OpeningDate = openingDate;
-        ClosingDate = closingDate;
-        TotalRevenue = totalRevenue;
-        TotalExpenses = totalExpenses;
-        TotalCash = totalCash;
-        IdAdmin = idAdmin;
+        OpeningDate = cash.OpeningDate;
+        ClosingDate = cash.ClosingDate;
+        TotalRevenue = cash.TotalRevenue;
+        TotalExpenses = cash.TotalExpenses;
+        TotalCash = cash.TotalCash;
+        IdAdmin = cash.IdAdmin;
+    }
+    
+    public void AddReservation(Reservation reservation)
+    {
         Reservations.Add(reservation);
+    }
+    
+    public void RemoveReservation(Reservation reservation)
+    {
+        Reservations.Remove(reservation);
     }
 }
