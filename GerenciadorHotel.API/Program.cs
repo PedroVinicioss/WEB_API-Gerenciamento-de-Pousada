@@ -1,5 +1,4 @@
-using GerenciadorHotel.Application.Services;
-using GerenciadorHotel.Core.Entities;
+using GerenciadorHotel.Application;
 using GerenciadorHotel.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +10,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //services 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRoomService, RoomService>();
-builder.Services.AddScoped<IReservationService, ReservationService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IConsumptionService, ConsumptionService>();
-builder.Services.AddScoped<ICashService, CashService>();
-builder.Services.AddScoped<ICalendaryService, CalendaryService>();
+builder.Services
+    .AddApplication();
 
 // Add services to the container.
 
