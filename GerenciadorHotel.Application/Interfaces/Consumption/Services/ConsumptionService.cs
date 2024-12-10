@@ -1,10 +1,9 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.Consumption.Services;
 
 public class ConsumptionService : IConsumptionService
 {
@@ -45,7 +44,7 @@ public class ConsumptionService : IConsumptionService
         return ResultViewModel<int>.Success(consumption.Id);
     }
 
-    public ResultViewModel Update(Consumption model)
+    public ResultViewModel Update(Core.Entities.Consumption model)
     {
         var consumption = _context.Consumptions.SingleOrDefault(c => c.Id == model.Id);
         if(consumption is null)

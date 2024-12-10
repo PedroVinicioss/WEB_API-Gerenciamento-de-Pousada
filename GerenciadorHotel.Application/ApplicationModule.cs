@@ -1,4 +1,10 @@
-﻿using GerenciadorHotel.Application.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Calendary.Services;
+using GerenciadorHotel.Application.Interfaces.Cash.Services;
+using GerenciadorHotel.Application.Interfaces.Consumption.Services;
+using GerenciadorHotel.Application.Interfaces.Product.Services;
+using GerenciadorHotel.Application.Interfaces.Reservation.Services;
+using GerenciadorHotel.Application.Interfaces.Room.Services;
+using GerenciadorHotel.Application.Interfaces.User.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GerenciadorHotel.Application;

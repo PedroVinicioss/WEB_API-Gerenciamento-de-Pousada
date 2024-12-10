@@ -1,10 +1,9 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.Room.Services;
 
 public class RoomService : IRoomService
 {
@@ -45,7 +44,7 @@ public class RoomService : IRoomService
         return ResultViewModel<int>.Success(room.Id);
     }
 
-    public ResultViewModel Update(Room model)
+    public ResultViewModel Update(Core.Entities.Room model)
     {
         var room = _context.Rooms.SingleOrDefault(r => r.Id == model.Id);
         if (room is null)

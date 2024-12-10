@@ -1,9 +1,8 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.Cash.Services;
 
 public class CashService : ICashService
 {
@@ -36,7 +35,7 @@ public class CashService : ICashService
         return ResultViewModel<CashViewModel>.Success(model);
     }
 
-    public ResultViewModel<CashViewModel> CreateCashForMonth(Cash model)
+    public ResultViewModel<CashViewModel> CreateCashForMonth(Core.Entities.Cash model)
     {
         _context.Cash.Add(model);
         _context.SaveChanges();
@@ -44,7 +43,7 @@ public class CashService : ICashService
         return ResultViewModel<CashViewModel>.Success(CashViewModel.FromEntity(model));
     }
 
-    public ResultViewModel<CashViewModel> UpdateCashForMonth(Cash model)
+    public ResultViewModel<CashViewModel> UpdateCashForMonth(Core.Entities.Cash model)
     {
         var cash = _context.Cash
             .SingleOrDefault(c => c.Id == model.Id && !c.IsDeleted);

@@ -1,10 +1,9 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.Product.Services;
 
 public class ProductService : IProductService
 {
@@ -46,7 +45,7 @@ public class ProductService : IProductService
         return ResultViewModel<int>.Success(product.Id);
     }
 
-    public ResultViewModel Update(Product model)
+    public ResultViewModel Update(Core.Entities.Product model)
     {
         var product = _context.Products.SingleOrDefault(p => !p.IsDeleted && p.Id == model.Id);
         if(product is null)

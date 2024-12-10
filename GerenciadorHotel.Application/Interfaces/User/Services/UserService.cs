@@ -1,10 +1,9 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.User.Services;
 
 public class UserService : IUserService
 {
@@ -46,7 +45,7 @@ public class UserService : IUserService
         return ResultViewModel<int>.Success(user.Id);
     }
 
-    public ResultViewModel Update(User model)
+    public ResultViewModel Update(Core.Entities.User model)
     {
         var user = _context.Users.SingleOrDefault(u => u.Id == model.Id);
         if(user is null)

@@ -1,10 +1,9 @@
 ﻿using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
-using GerenciadorHotel.Core.Entities;
 using GerenciadorHotel.Infrastructure.Persistence;
 
-namespace GerenciadorHotel.Application.Services;
+namespace GerenciadorHotel.Application.Interfaces.Reservation.Services;
 
 public class ReservationService : IReservationService
 {
@@ -46,7 +45,7 @@ public class ReservationService : IReservationService
         return ResultViewModel<int>.Success(reservation.Id);
     }
     
-    public ResultViewModel Update(Reservation model)
+    public ResultViewModel Update(Core.Entities.Reservation model)
     {
         var reservation = _context.Reservations.SingleOrDefault(r => r.Id == model.Id);
         if(reservation is null)

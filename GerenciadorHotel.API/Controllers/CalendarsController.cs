@@ -1,4 +1,4 @@
-﻿using GerenciadorHotel.Application.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Calendary.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;

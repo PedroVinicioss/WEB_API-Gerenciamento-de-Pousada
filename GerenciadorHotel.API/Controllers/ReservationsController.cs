@@ -1,5 +1,5 @@
-﻿using GerenciadorHotel.Application.Models.InputModels;
-using GerenciadorHotel.Application.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Reservation.Services;
+using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
