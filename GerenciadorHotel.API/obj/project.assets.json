@@ -4545,7 +4545,6 @@
       "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\pedro\\RiderProjects\\WEB_API-Gerenciamento-de-Pousada\\GerenciadorHotel.API\\obj\\",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

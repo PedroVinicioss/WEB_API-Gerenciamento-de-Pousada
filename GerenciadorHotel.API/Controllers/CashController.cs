@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GerenciadorHotel.Application.Interfaces.Cash.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
 
@@ -6,18 +7,30 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/cash")]
 public class CashController : Controller
 {
+    private ICashService _cashService;
+    
+    public CashController(ICashService cashService)
+    {
+        _cashService = cashService;
+    }
+    
     // GET
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetAll(string search = "")
     {
-        return Ok();
+        var result = _cashService.GetAll(search);
+        return Ok(result);
     }
 
     // GET
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        return Ok();
+        var result = _cashService.GetById(id);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return Ok(result);
     }
     
     // POST

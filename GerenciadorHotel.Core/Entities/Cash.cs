@@ -4,7 +4,7 @@ public class Cash : BaseEntity
 {
     protected Cash() { }
     
-    public Cash(DateTime openingDate, DateTime closingDate, decimal totalRevenue, decimal totalExpenses, decimal totalCash, int idAdmin)
+    public Cash(DateTime openingDate, DateTime closingDate, decimal totalRevenue, decimal totalExpenses, decimal totalCash, string month, int idAdmin)
         : base()
     {
         OpeningDate = openingDate;
@@ -12,6 +12,7 @@ public class Cash : BaseEntity
         TotalRevenue = totalRevenue;
         TotalExpenses = totalExpenses;
         TotalCash = totalCash;
+        Month = month;
         IdAdmin = idAdmin;
         Reservations = [];
     }
@@ -21,6 +22,7 @@ public class Cash : BaseEntity
     public decimal TotalRevenue { get; private set; }
     public decimal TotalExpenses { get; private set; }
     public decimal TotalCash { get; private set; }
+    public string Month { get; private set; }
     public int IdAdmin { get; private set; }
     public User Admin { get; private set; }
     public List<Reservation> Reservations { get; private set; }
@@ -32,6 +34,7 @@ public class Cash : BaseEntity
         TotalRevenue = cash.TotalRevenue;
         TotalExpenses = cash.TotalExpenses;
         TotalCash = cash.TotalCash;
+        Month = cash.Month;
         IdAdmin = cash.IdAdmin;
     }
     
@@ -44,4 +47,5 @@ public class Cash : BaseEntity
     {
         Reservations.Remove(reservation);
     }
+    
 }

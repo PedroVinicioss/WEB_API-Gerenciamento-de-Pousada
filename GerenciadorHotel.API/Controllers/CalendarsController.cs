@@ -7,15 +7,15 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/calendars")]
 public class CalendarsController : ControllerBase
 {
-    private readonly CalendaryService _calendaryService;
+    private readonly ICalendaryService _calendaryService;
 
-    public CalendarsController(CalendaryService calendaryService)
+    public CalendarsController(ICalendaryService calendaryService)
     {
         _calendaryService = calendaryService;
     }
     
     [HttpPost("generate")]
-    public IActionResult GenerateCalendary(int roomId, DateTime startDate, DateTime endDate)
+    public IActionResult GenerateCalendaryForRoom(int roomId, DateTime startDate, DateTime endDate)
     {
         if (startDate > endDate)
         {

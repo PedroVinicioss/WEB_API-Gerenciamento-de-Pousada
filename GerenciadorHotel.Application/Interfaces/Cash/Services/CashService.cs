@@ -13,10 +13,10 @@ public class CashService : ICashService
         _context = context;
     }
     
-    public ResultViewModel<List<CashViewModel>> GetAll()
+    public ResultViewModel<List<CashViewModel>> GetAll(string search = "")
     {
         var cash = _context.Cash
-            .Where(c => !c.IsDeleted)
+            .Where(c => !c.IsDeleted && (search == "" || c.Month.Contains(search)))
             .Select(c => CashViewModel.FromEntity(c))
             .ToList();
         
@@ -27,7 +27,7 @@ public class CashService : ICashService
     {
         var cash = _context.Cash
             .SingleOrDefault(c => c.Id == id && !c.IsDeleted);
-        if (cash == null)
+        if (cash is null)
             return ResultViewModel<CashViewModel>.Error("Caixa não encontrado");
 
         var model = CashViewModel.FromEntity(cash);

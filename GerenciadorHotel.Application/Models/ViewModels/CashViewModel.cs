@@ -12,7 +12,7 @@ public class CashViewModel
         TotalRevenue = totalRevenue;
         TotalExpenses = totalExpenses;
         TotalCash = totalCash;
-        Reservations = reservations.Select(ReservationViewModel.FromEntity).ToList();
+        Reservations = reservations?.Select(ReservationViewModel.FromEntity).ToList() ?? new List<ReservationViewModel>();
     }
     
     public int Id { get;  set; }
