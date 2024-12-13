@@ -10,4 +10,5 @@ public interface ICashService
     ResultViewModel<CashViewModel> CreateCashForMonth(Core.Entities.Cash model);
     ResultViewModel<CashViewModel> UpdateCashForMonth(Core.Entities.Cash model);
     ResultViewModel<CashViewModel> DeleteCashForMonth(int id);
+    public ResultViewModel<int> GetCashByMonth(int month, int year);
 }

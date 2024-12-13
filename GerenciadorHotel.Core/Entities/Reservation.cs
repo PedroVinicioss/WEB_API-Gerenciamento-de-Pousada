@@ -55,4 +55,9 @@ public class Reservation : BaseEntity
     {
         TotalCost = Consumptions.Sum(c => c.Value);
     }
+    
+    public void SetCash(int idCash)
+    {
+        IdCash = idCash;
+    }
 }

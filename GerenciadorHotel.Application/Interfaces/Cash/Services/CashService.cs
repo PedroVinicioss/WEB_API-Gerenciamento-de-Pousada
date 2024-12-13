@@ -68,4 +68,15 @@ public class CashService : ICashService
         
         return ResultViewModel<CashViewModel>.Success(CashViewModel.FromEntity(cash));
     }
+
+    public ResultViewModel<int> GetCashByMonth(int month, int year)
+    {
+        var monthYear = $"{month:D2}/{year}"; 
+        var cash = _context.Cash
+            .SingleOrDefault(c => c.Month == monthYear && !c.IsDeleted);
+        if (cash == null)
+            return ResultViewModel<int>.Error("Caixa não encontrado");
+
+        return ResultViewModel<int>.Success(cash.Id);
+    }
 }
