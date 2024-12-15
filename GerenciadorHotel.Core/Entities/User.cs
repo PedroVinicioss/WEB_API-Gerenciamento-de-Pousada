@@ -83,5 +83,5 @@ public class User : BaseEntity
         BiologicalSex = user.BiologicalSex;
         Role = user.Role;
     }
-
+    
 }

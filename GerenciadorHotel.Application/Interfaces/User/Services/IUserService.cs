@@ -11,4 +11,5 @@ public interface IUserService
     ResultViewModel<int> Insert(CreateUserInputModel model);
     ResultViewModel Update(Core.Entities.User model);
     ResultViewModel Delete(int id);
+    ResultViewModel<int> Authenticate(string email, string password);
 }
