@@ -4,6 +4,7 @@ using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
 using GerenciadorHotel.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.User.Services;
 
@@ -42,7 +43,12 @@ public class UserService : IUserService
 
     public ResultViewModel<UserViewModel> GetById(int id)
     {
-        var user = _context.Users.SingleOrDefault(u => u.Id == id);
+        var user = _context.Users
+            .Include(u => u.Reservations)
+            .ThenInclude(r => r.Room)
+            .Include(u => u.Partners)
+            .SingleOrDefault(u => u.Id == id);
+        
         if(user is null)
             return ResultViewModel<UserViewModel>.Error("Usuário não encontrado");
         
@@ -53,19 +59,12 @@ public class UserService : IUserService
 
     public ResultViewModel<int> Insert(CreateUserInputModel model)
     {
-                
-        //verifica requisitos de senha
-        if(model.Password.Length < 6)
-            return ResultViewModel<int>.Error("A senha deve ter no mínimo 6 caracteres");
-        
-        if(!model.Password.Any(char.IsDigit))
-            return ResultViewModel<int>.Error("A senha deve conter ao menos um número");
-        
-        if(!model.Password.Any(char.IsUpper))
-            return ResultViewModel<int>.Error("A senha deve conter ao menos uma letra maiúscula");
-        
-        if(!model.Password.Any(char.IsLower))
-            return ResultViewModel<int>.Error("A senha deve conter ao menos uma letra minúscula");
+        // Validação de senha
+        if (model.Password.Length < 6 ||
+            !model.Password.Any(char.IsDigit) ||
+            !model.Password.Any(char.IsUpper) ||
+            !model.Password.Any(char.IsLower))
+            return ResultViewModel<int>.Error("Senha deve conter ao menos 6 caracteres, um número, uma letra maiúscula e uma minúscula");
         
         model.Password = DoHash(model.Password);
         var user = model.ToEntity();

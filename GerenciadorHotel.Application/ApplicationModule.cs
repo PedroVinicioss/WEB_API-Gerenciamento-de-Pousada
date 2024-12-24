@@ -5,7 +5,10 @@ using GerenciadorHotel.Application.Interfaces.Consumption.Services;
 using GerenciadorHotel.Application.Interfaces.Product.Services;
 using GerenciadorHotel.Application.Interfaces.Reservation.Services;
 using GerenciadorHotel.Application.Interfaces.Room.Services;
+using GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
 using GerenciadorHotel.Application.Interfaces.User.Services;
+using GerenciadorHotel.Application.Models;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GerenciadorHotel.Application;
@@ -16,6 +19,9 @@ public static class ApplicationModule
     {
         services
             .AddServices();
+        
+        services
+            .AddHandlers();
 
         return services;
     }
@@ -29,6 +35,16 @@ public static class ApplicationModule
         services.AddScoped<IConsumptionService, ConsumptionService>();
         services.AddScoped<ICashService, CashService>();
         services.AddScoped<ICalendaryService, CalendaryService>();
+        
+        return services;
+    }
+    
+    private static IServiceCollection AddHandlers(this IServiceCollection services)
+    {
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssemblyContaining<CreateUserCommand>());
+
+        services.AddTransient<IPipelineBehavior<CreateUserCommand, ResultViewModel<int>>, ValidateCreateUserCommandBehavior>();
         
         return services;
     }

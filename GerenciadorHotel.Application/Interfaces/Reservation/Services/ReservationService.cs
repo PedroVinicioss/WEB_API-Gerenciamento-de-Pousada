@@ -3,6 +3,7 @@ using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Application.Models.ViewModels;
 using GerenciadorHotel.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.Reservation.Services;
 
@@ -21,6 +22,8 @@ public class ReservationService : IReservationService
     {
         var reservations = _context.Reservations
             .Where(r => !r.IsDeleted)
+            .Include(r => r.Customer)
+            .Include(r => r.Room)
             .Select(r => ReservationViewModel.FromEntity(r))
             .ToList();
 
@@ -29,7 +32,10 @@ public class ReservationService : IReservationService
 
     public ResultViewModel<ReservationViewModel> GetById(int id)
     {
-        var reservation = _context.Reservations.SingleOrDefault(r => r.Id == id);
+        var reservation = _context.Reservations
+            .Include(r => r.Customer)
+            .Include(r => r.Room)
+            .SingleOrDefault(r => r.Id == id);
         if(reservation is null)
             return ResultViewModel<ReservationViewModel>.Error("Reserva não encontrada");
         

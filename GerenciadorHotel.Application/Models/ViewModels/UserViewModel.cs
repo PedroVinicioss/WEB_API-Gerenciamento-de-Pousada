@@ -25,8 +25,12 @@ public class UserViewModel
         BirthDate = birthDate;
         Sex = sex;
         Role = role;
-        Reservations = reservations?.Select(ReservationViewModel.FromEntity).ToList() ?? new List<ReservationViewModel>();
-        Partners = partners?.Select(PartnerViewModel.FromEntity).ToList() ?? new List<PartnerViewModel>();
+        Reservations = reservations?.Select(ReservationViewModel.FromEntity)
+            .Where(r => r.IdCustomer == id)
+            .ToList() ?? new List<ReservationViewModel>();
+        Partners = partners?.Select(PartnerViewModel.FromEntity)
+            .Where(p => p.IdCustomer == id)
+            .ToList() ?? new List<PartnerViewModel>();
     }
 
     public int Id { get; set; }
