@@ -6,6 +6,31 @@ namespace GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
 
 public class UpdateUserCommand : IRequest<ResultViewModel>
 {
+    public UpdateUserCommand(int id, string fullName, string email, string hashPassword, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, bool active, RoleEnum role)
+    {
+        Id = id;
+        FullName = fullName;
+        Email = email;
+        HashPassword = hashPassword;
+        Phone = phone;
+        MobilePhone = mobilePhone;
+        Cpf = cpf;
+        Rg = rg;
+        Profession = profession;
+        PostalCode = postalCode;
+        City = city;
+        State = state;
+        Country = country;
+        Address = address;
+        Neighborhood = neighborhood;
+        Number = number;
+        AddressComplement = addressComplement;
+        BirthDate = birthDate;
+        BiologicalSex = biologicalSex;
+        Active = active;
+        Role = role;
+    }
+
     public int Id { get; set; }
     public string FullName { get; private set; }
     public string Email { get; private set; }

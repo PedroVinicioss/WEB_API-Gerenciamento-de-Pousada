@@ -1,6 +1,9 @@
-﻿using GerenciadorHotel.Application.Interfaces.Room.Services;
-using GerenciadorHotel.Application.Models.InputModels;
-using GerenciadorHotel.Core.Entities;
+﻿using GerenciadorHotel.Application.Interfaces.Room.Commands.CreateRoom;
+using GerenciadorHotel.Application.Interfaces.Room.Commands.DeleteRoom;
+using GerenciadorHotel.Application.Interfaces.Room.Queries.GetAllRooms;
+using GerenciadorHotel.Application.Interfaces.Room.Queries.GetRoomById;
+using GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -9,26 +12,26 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/rooms")]
 public class RoomsController : ControllerBase
 {
-    IRoomService _roomService;
+    private readonly IMediator _mediator;
     
-    public RoomsController(IRoomService roomService)
+    public RoomsController(IMediator mediator)
     {
-        _roomService = roomService;
+        _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public IActionResult GetAll(string search = "")
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var results = _roomService.GetAll(search);
+        var results = await _mediator.Send(new GetAllRoomsQuery(search));
         return Ok(results);
     }
     
     // GET
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = _roomService.GetById(id);
+        var result = await _mediator.Send(new GetRoomByIdQuery(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -37,20 +40,20 @@ public class RoomsController : ControllerBase
     
     // POST
     [HttpPost]
-    public IActionResult Post(CreateRoomInputModel model)
+    public async Task<IActionResult> Post(CreateRoomCommand command)
     {
-        var result = _roomService.Insert(model);
+        var result = await _mediator.Send(command);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
-        return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
     
     // PUT
     [HttpPut]
-    public IActionResult Put(Room model)
+    public async Task<IActionResult> Put(UpdateUserCommand command)
     {
-        var result = _roomService.Update(model);
+        var result = await _mediator.Send(command);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -59,9 +62,9 @@ public class RoomsController : ControllerBase
     
     // DELETE
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var result = _roomService.Delete(id);
+        var result = await _mediator.Send(new DeleteRoomCommand(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
