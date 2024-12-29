@@ -1,7 +1,8 @@
 ﻿using GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
 using GerenciadorHotel.Application.Interfaces.User.Commands.DeleteUser;
-using GerenciadorHotel.Application.Interfaces.User.Services;
-using GerenciadorHotel.Core.Entities;
+using GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
+using GerenciadorHotel.Application.Interfaces.User.Queries.GetAllUsers;
+using GerenciadorHotel.Application.Interfaces.User.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,27 +12,25 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/users")]
 public class UsersController : ControllerBase
 {
-    IUserService _userService;
-    private IMediator _mediator;
-    public UsersController(IUserService service, IMediator mediator)
+    private readonly IMediator _mediator;
+    public UsersController( IMediator mediator)
     {
-        _userService = service;
         _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var results = _userService.GetAll();
+        var results = await _mediator.Send(new GetAllUsersQuery(search));
         return Ok(results);
     }
     
     // GET
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = _userService.GetById(id);
+        var result = await _mediator.Send(new GetUserByIdQuery(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -52,9 +51,9 @@ public class UsersController : ControllerBase
     
     // PUT
     [HttpPut]
-    public IActionResult Put(User model)
+    public async Task<IActionResult> Put(UpdateUserCommand command)
     {
-        var result = _userService.Update(model);
+        var result = await _mediator.Send(command);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -63,10 +62,10 @@ public class UsersController : ControllerBase
     
     // DELETE
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(DeleteUserCommand command)
+    public async Task<IActionResult> Delete(int id)
     {
         //var result = _userService.Delete(id);
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(new DeleteUserCommand(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
