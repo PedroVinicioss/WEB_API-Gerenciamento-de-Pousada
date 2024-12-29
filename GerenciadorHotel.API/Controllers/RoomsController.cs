@@ -1,5 +1,6 @@
 ﻿using GerenciadorHotel.Application.Interfaces.Room.Commands.CreateRoom;
 using GerenciadorHotel.Application.Interfaces.Room.Commands.DeleteRoom;
+using GerenciadorHotel.Application.Interfaces.Room.Commands.UpdateRoom;
 using GerenciadorHotel.Application.Interfaces.Room.Queries.GetAllRooms;
 using GerenciadorHotel.Application.Interfaces.Room.Queries.GetRoomById;
 using GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
@@ -51,7 +52,7 @@ public class RoomsController : ControllerBase
     
     // PUT
     [HttpPut]
-    public async Task<IActionResult> Put(UpdateUserCommand command)
+    public async Task<IActionResult> Put(UpdateRoomCommand command)
     {
         var result = await _mediator.Send(command);
         if (!result.IsSuccess)
