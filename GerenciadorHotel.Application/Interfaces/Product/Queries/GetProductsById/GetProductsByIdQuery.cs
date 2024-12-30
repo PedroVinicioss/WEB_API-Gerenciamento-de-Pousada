@@ -4,9 +4,9 @@ using MediatR;
 
 namespace GerenciadorHotel.Application.Interfaces.Product.Queries.GetProductsById;
 
-public class GetProductsById : IRequest<ResultViewModel<ProductViewModel>>
+public class GetProductsByIdQuery : IRequest<ResultViewModel<ProductViewModel>>
 {
-    public GetProductsById(int id)
+    public GetProductsByIdQuery(int id)
     {
         Id = id;
     }

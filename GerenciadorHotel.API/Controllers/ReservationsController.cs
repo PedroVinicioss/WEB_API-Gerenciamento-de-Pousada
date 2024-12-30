@@ -12,7 +12,7 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/reservations")]
 public class ReservationsController : ControllerBase
 {
-    private IMediator _mediator;
+    private readonly IMediator _mediator;
 
     public ReservationsController(IMediator mediator)
     {

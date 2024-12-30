@@ -3,9 +3,6 @@ using GerenciadorHotel.Application.Interfaces.Product.Commands.DeleteProduct;
 using GerenciadorHotel.Application.Interfaces.Product.Commands.UpdateProduct;
 using GerenciadorHotel.Application.Interfaces.Product.Queries.GetAllProducts;
 using GerenciadorHotel.Application.Interfaces.Product.Queries.GetProductsById;
-using GerenciadorHotel.Application.Interfaces.Product.Services;
-using GerenciadorHotel.Application.Models.InputModels;
-using GerenciadorHotel.Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +12,7 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/products")]
 public class ProductsController : ControllerBase
 {
-    private IMediator _mediator;
+    private readonly IMediator _mediator;
     
     public ProductsController(IMediator mediator)
     {
@@ -34,7 +31,7 @@ public class ProductsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _mediator.Send(new GetProductsById(id));
+        var result = await _mediator.Send(new GetProductsByIdQuery(id));
         if(!result.IsSuccess)
             return BadRequest(result.Message);
         

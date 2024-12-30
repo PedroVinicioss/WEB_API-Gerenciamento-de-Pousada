@@ -6,6 +6,7 @@ using GerenciadorHotel.Application.Interfaces.Product.Services;
 using GerenciadorHotel.Application.Interfaces.Reservation.Services;
 using GerenciadorHotel.Application.Interfaces.Room.Services;
 using GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
+using GerenciadorHotel.Application.Interfaces.User.Queries.GetUserById;
 using GerenciadorHotel.Application.Interfaces.User.Services;
 using GerenciadorHotel.Application.Models;
 using MediatR;
@@ -43,6 +44,9 @@ public static class ApplicationModule
     {
         services.AddMediatR(config =>
             config.RegisterServicesFromAssemblyContaining<CreateUserCommand>());
+        
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssemblyContaining<GetUserByIdQuery>());
 
         services.AddTransient<IPipelineBehavior<CreateUserCommand, ResultViewModel<int>>, ValidateCreateUserCommandBehavior>();
         

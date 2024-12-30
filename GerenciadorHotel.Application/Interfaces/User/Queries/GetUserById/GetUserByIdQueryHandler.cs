@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.User.Queries.GetUserById;
 
-public class GetUserByIdQueryHandler : IRequest<ResultViewModel<UserViewModel>>
+public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ResultViewModel<UserViewModel>>
 {
     private readonly AppDbContext _context;
 
@@ -23,11 +23,10 @@ public class GetUserByIdQueryHandler : IRequest<ResultViewModel<UserViewModel>>
             .Include(u => u.Partners)
             .SingleOrDefaultAsync(u => u.Id == request.Id, cancellationToken: cancellationToken);
         
-        if(user is null)
-            return ResultViewModel<UserViewModel>.Error("Usuário não encontrado");
-        
-        var model = UserViewModel.FromEntity(user);
-        
-        return ResultViewModel<UserViewModel>.Success(model);
+        if (user is null)
+            return ResultViewModel<UserViewModel>.Error("Usuário não encontrado.");
+
+        var userViewModel = UserViewModel.FromEntity(user);
+        return ResultViewModel<UserViewModel>.Success(userViewModel);
     }
 }
