@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.User.Commands.DeleteUser;
 
-public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, ResultViewModel>
+public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ResultViewModel>
 {
     private readonly AppDbContext _context;
     
-    public DeleteUserHandler(AppDbContext context)
+    public DeleteUserCommandHandler(AppDbContext context)
     {
         _context = context;
     }

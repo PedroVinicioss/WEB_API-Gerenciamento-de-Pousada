@@ -1,6 +1,9 @@
-﻿using GerenciadorHotel.Application.Interfaces.Reservation.Services;
-using GerenciadorHotel.Application.Models.InputModels;
-using GerenciadorHotel.Core.Entities;
+﻿using GerenciadorHotel.Application.Interfaces.Reservation.Commands.CreateReservation;
+using GerenciadorHotel.Application.Interfaces.Reservation.Commands.DeleteReservation;
+using GerenciadorHotel.Application.Interfaces.Reservation.Commands.UpdateReservation;
+using GerenciadorHotel.Application.Interfaces.Reservation.Queries.GetAllReservations;
+using GerenciadorHotel.Application.Interfaces.Reservation.Queries.GetReservationsById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -9,26 +12,26 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/reservations")]
 public class ReservationsController : ControllerBase
 {
-    private IReservationService _reservationService;
-    
-    public ReservationsController(IReservationService reservationService)
+    private IMediator _mediator;
+
+    public ReservationsController(IMediator mediator)
     {
-        _reservationService = reservationService;
+        _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var results = _reservationService.GetAll();
+        var results = await _mediator.Send(new GetAllReservationsQuery(search));
         return Ok(results);
     }
     
     // GET
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = _reservationService.GetById(id);
+        var result = await _mediator.Send(new GetReservationsByIdQuery(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -37,20 +40,20 @@ public class ReservationsController : ControllerBase
     
     // POST
     [HttpPost]
-    public IActionResult Post(CreateReservationInputModel model)
+    public async Task<IActionResult> Post(CreateReservationCommand command)
     {
-        var result = _reservationService.Insert(model);
+        var result = await _mediator.Send(command);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
-        return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
     
     // PUT
     [HttpPut]
-    public IActionResult Put(Reservation model)
+    public async Task<IActionResult> Put(UpdateReservationCommand command)
     {
-        var result = _reservationService.Update(model);
+        var result = await _mediator.Send(command);
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -59,9 +62,9 @@ public class ReservationsController : ControllerBase
     
     // DELETE
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var result = _reservationService.Delete(id);
+        var result = await _mediator.Send(new DeleteReservationCommand(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         

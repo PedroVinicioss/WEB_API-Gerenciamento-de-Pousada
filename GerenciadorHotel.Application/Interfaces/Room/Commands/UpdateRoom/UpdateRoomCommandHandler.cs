@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.Room.Commands.UpdateRoom;
 
-public class UpdateRoomHandler : IRequestHandler<UpdateRoomCommand, ResultViewModel>
+public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, ResultViewModel>
 {
     private readonly AppDbContext _context;
 
-    public UpdateRoomHandler(AppDbContext context)
+    public UpdateRoomCommandHandler(AppDbContext context)
     {
         _context = context;
     }

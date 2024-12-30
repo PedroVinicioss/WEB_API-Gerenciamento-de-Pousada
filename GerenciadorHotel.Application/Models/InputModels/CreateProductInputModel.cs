@@ -12,5 +12,5 @@ public class CreateProductInputModel
     public int Stock { get; set; }
     
     public Product ToEntity()
-        => new Product(Name, Description, Price, Category,  Stock);
+        => new Product(Name, Description, Price, Category, Stock);
 }

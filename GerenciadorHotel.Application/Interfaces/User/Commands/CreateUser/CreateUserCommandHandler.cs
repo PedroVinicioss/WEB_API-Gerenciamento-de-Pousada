@@ -6,11 +6,11 @@ using MediatR;
 
 namespace GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
 
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, ResultViewModel<int>>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ResultViewModel<int>>
 {
     private readonly AppDbContext _context;
 
-    public CreateUserHandler(AppDbContext context)
+    public CreateUserCommandHandler(AppDbContext context)
     {
         _context = context;
     }

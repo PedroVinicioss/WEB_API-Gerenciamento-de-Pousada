@@ -1,6 +1,12 @@
-﻿using GerenciadorHotel.Application.Interfaces.Product.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Product.Commands.CreateProduct;
+using GerenciadorHotel.Application.Interfaces.Product.Commands.DeleteProduct;
+using GerenciadorHotel.Application.Interfaces.Product.Commands.UpdateProduct;
+using GerenciadorHotel.Application.Interfaces.Product.Queries.GetAllProducts;
+using GerenciadorHotel.Application.Interfaces.Product.Queries.GetProductsById;
+using GerenciadorHotel.Application.Interfaces.Product.Services;
 using GerenciadorHotel.Application.Models.InputModels;
 using GerenciadorHotel.Core.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -9,26 +15,26 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/products")]
 public class ProductsController : ControllerBase
 {
-    IProductService _productService;
+    private IMediator _mediator;
     
-    public ProductsController(IProductService service)
+    public ProductsController(IMediator mediator)
     {
-        _productService = service;
+        _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public IActionResult GetAll(string search = "")
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var results = _productService.GetAll(search);
+        var results = await _mediator.Send(new GetAllProductsQuery(search));
         return Ok(results);
     }
 
     // GET
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = _productService.GetById(id);
+        var result = await _mediator.Send(new GetProductsById(id));
         if(!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -37,20 +43,20 @@ public class ProductsController : ControllerBase
     
     // POST
     [HttpPost]
-    public IActionResult Post(CreateProductInputModel model)
+    public async Task<IActionResult> Post(CreateProductCommand command)
     {
-        var result = _productService.Insert(model);
+        var result = await _mediator.Send(command);
         if(!result.IsSuccess)
             return BadRequest(result.Message);
         
-        return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
     
     // PUT
     [HttpPut]
-    public IActionResult Put(Product model)
+    public async Task<IActionResult> Put(UpdateProductCommand command)
     {
-        var result = _productService.Update(model);
+        var result = await _mediator.Send(command);
         if(!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -59,9 +65,9 @@ public class ProductsController : ControllerBase
     
     // DELETE
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var result = _productService.Delete(id);
+        var result = await _mediator.Send(new DeleteProductCommand(id));
         if(!result.IsSuccess)
             return BadRequest(result.Message);
         

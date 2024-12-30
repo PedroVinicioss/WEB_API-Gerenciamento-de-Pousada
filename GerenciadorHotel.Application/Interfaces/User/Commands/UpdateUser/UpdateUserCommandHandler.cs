@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
 
-public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, ResultViewModel>
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResultViewModel>
 {
     private readonly AppDbContext _context;
     
-    public UpdateUserHandler(AppDbContext context)
+    public UpdateUserCommandHandler(AppDbContext context)
     {
         _context = context;
     }
