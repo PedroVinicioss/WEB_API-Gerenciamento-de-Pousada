@@ -3,7 +3,6 @@ using GerenciadorHotel.Application.Interfaces.Room.Commands.DeleteRoom;
 using GerenciadorHotel.Application.Interfaces.Room.Commands.UpdateRoom;
 using GerenciadorHotel.Application.Interfaces.Room.Queries.GetAllRooms;
 using GerenciadorHotel.Application.Interfaces.Room.Queries.GetRoomById;
-using GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

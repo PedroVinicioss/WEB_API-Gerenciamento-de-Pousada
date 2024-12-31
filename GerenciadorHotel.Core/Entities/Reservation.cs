@@ -24,7 +24,7 @@ public class Reservation : BaseEntity
     public int IdRoom { get; private set; }
     public Room Room { get; private set; }
     public int IdCustomer { get; private set; }
-    public User Customer { get; private set; }
+    public Customer Customer { get; private set; }
     public int IdCash { get; private set; }
     public Cash Cash { get; private set; }
     public Calendary Calendary { get; private set; }

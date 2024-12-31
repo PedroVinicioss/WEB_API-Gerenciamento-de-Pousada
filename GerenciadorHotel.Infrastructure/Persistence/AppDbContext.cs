@@ -1,4 +1,5 @@
 ﻿using GerenciadorHotel.Core.Entities;
+using GerenciadorHotel.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorHotel.Infrastructure.Persistence;
@@ -13,7 +14,6 @@ public class AppDbContext : DbContext
     public DbSet<Calendary> Calendars { get; set; }
     public DbSet<Cash> Cash { get; set; }
     public DbSet<Consumption> Consumptions { get; set; }
-    public DbSet<Partner> Partners { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<Room> Rooms { get; set; }
@@ -68,17 +68,7 @@ public class AppDbContext : DbContext
                     .HasForeignKey(c => c.IdProduct)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-
-        builder
-            .Entity<Partner>(e =>
-            {
-                e.HasKey(p => p.Id);
-
-                e.HasOne(p => p.Customer)
-                    .WithMany(c => c.Partners)
-                    .HasForeignKey(p => p.IdCustomer)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+        
 
         builder
             .Entity<Product>(e =>
@@ -141,16 +131,45 @@ public class AppDbContext : DbContext
         builder
             .Entity<User>(e =>
             {
+                // Configuração do discriminador usando a coluna 'UserType' no banco
+                e.HasDiscriminator<string>("UserType")
+                    .HasValue<Admin>("Admin")
+                    .HasValue<Customer>("Customer");
+
+                // Configuração da chave primária
                 e.HasKey(u => u.Id);
 
-                e.HasMany(u => u.Reservations)
+                // Configuração do mapeamento da propriedade Role
+                e.Property(u => u.Role)
+                    .HasConversion(
+                        role => role.ToString(), // Enum -> String para o banco
+                        role => (RoleEnum)Enum.Parse(typeof(RoleEnum), role) // String -> Enum para a aplicação
+                    );
+            });
+
+
+
+        
+        builder
+            .Entity<Customer>(e =>
+            {
+                e.HasBaseType<User>();
+                
+                e.HasMany(c => c.Reservations)
                     .WithOne(r => r.Customer)
                     .HasForeignKey(r => r.IdCustomer)
                     .OnDelete(DeleteBehavior.Restrict);
-
-                e.HasMany(u => u.Partners)
-                    .WithOne(p => p.Customer)
-                    .HasForeignKey(p => p.IdCustomer)
+                
+            });
+        
+        builder
+            .Entity<Admin>(e =>
+            {
+                e.HasBaseType<User>();
+                
+                e.HasMany(a => a.Cashes)
+                    .WithOne(c => c.Admin)
+                    .HasForeignKey(c => c.IdAdmin)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 

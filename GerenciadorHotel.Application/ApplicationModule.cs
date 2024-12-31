@@ -2,12 +2,11 @@
 using GerenciadorHotel.Application.Interfaces.Calendary.Services;
 using GerenciadorHotel.Application.Interfaces.Cash.Services;
 using GerenciadorHotel.Application.Interfaces.Consumption.Services;
+using GerenciadorHotel.Application.Interfaces.Customers.Commands.CreateCustomer;
+using GerenciadorHotel.Application.Interfaces.Customers.Queries.GetCustomerById;
 using GerenciadorHotel.Application.Interfaces.Product.Services;
 using GerenciadorHotel.Application.Interfaces.Reservation.Services;
 using GerenciadorHotel.Application.Interfaces.Room.Services;
-using GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
-using GerenciadorHotel.Application.Interfaces.User.Queries.GetUserById;
-using GerenciadorHotel.Application.Interfaces.User.Services;
 using GerenciadorHotel.Application.Models;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +28,6 @@ public static class ApplicationModule
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IReservationService, ReservationService>();
         services.AddScoped<IProductService, ProductService>();
@@ -43,12 +41,12 @@ public static class ApplicationModule
     private static IServiceCollection AddHandlers(this IServiceCollection services)
     {
         services.AddMediatR(config =>
-            config.RegisterServicesFromAssemblyContaining<CreateUserCommand>());
+            config.RegisterServicesFromAssemblyContaining<CreateCustomerCommand>());
         
         services.AddMediatR(config =>
-            config.RegisterServicesFromAssemblyContaining<GetUserByIdQuery>());
+            config.RegisterServicesFromAssemblyContaining<GetCustomerByIdQuery>());
 
-        services.AddTransient<IPipelineBehavior<CreateUserCommand, ResultViewModel<int>>, ValidateCreateUserCommandBehavior>();
+        services.AddTransient<IPipelineBehavior<CreateCustomerCommand, ResultViewModel<int>>, ValidateCreateCustomerCommandBehavior>();
         
         return services;
     }

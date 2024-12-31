@@ -13,8 +13,7 @@ public class CreateUserInputModel
     // Personal Info
     public string? Phone { get; set; }
     public string MobilePhone { get; set; }
-    public string Cpf { get; set; }
-    public string Rg { get; set; }
+    public string Document { get; set; }
     public string? Profession { get; set; }
 
     
@@ -33,7 +32,7 @@ public class CreateUserInputModel
 
     public RoleEnum Role { get; set; }
 
-    public User ToEntity()
-        => new(FullName, Email, Password, Phone, MobilePhone, Cpf, Rg, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
+    public Customer ToEntity()
+        => new(FullName, Email, Password, Phone, MobilePhone, Document, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
 
 }

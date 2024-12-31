@@ -2,11 +2,11 @@
 using GerenciadorHotel.Core.Enums;
 using MediatR;
 
-namespace GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
+namespace GerenciadorHotel.Application.Interfaces.Customers.Commands.UpdateCustomer;
 
-public class UpdateUserCommand : IRequest<ResultViewModel>
+public class UpdateCustomerCommand : IRequest<ResultViewModel>
 {
-    public UpdateUserCommand(int id, string fullName, string email, string hashPassword, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, bool active, RoleEnum role)
+    public UpdateCustomerCommand(int id, string fullName, string email, string hashPassword, string phone, string mobilePhone, string document, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, bool active)
     {
         Id = id;
         FullName = fullName;
@@ -14,8 +14,7 @@ public class UpdateUserCommand : IRequest<ResultViewModel>
         HashPassword = hashPassword;
         Phone = phone;
         MobilePhone = mobilePhone;
-        Cpf = cpf;
-        Rg = rg;
+        Document = document;
         Profession = profession;
         PostalCode = postalCode;
         City = city;
@@ -27,8 +26,6 @@ public class UpdateUserCommand : IRequest<ResultViewModel>
         AddressComplement = addressComplement;
         BirthDate = birthDate;
         BiologicalSex = biologicalSex;
-        Active = active;
-        Role = role;
     }
 
     public int Id { get; set; }
@@ -37,8 +34,7 @@ public class UpdateUserCommand : IRequest<ResultViewModel>
     public string HashPassword { get; private set; }
     public string Phone { get; private set; }
     public string MobilePhone { get; private set; }
-    public string Cpf { get; private set; }
-    public string Rg { get; private set; }
+    public string Document { get; private set; }
     public string Profession { get; private set; }
     
     public string PostalCode { get; private set; }
@@ -53,9 +49,7 @@ public class UpdateUserCommand : IRequest<ResultViewModel>
     public DateTime BirthDate { get; private set; }
     public BiologicalSexEnum BiologicalSex { get; private set; }
     
-    public bool Active { get; private set; }
-    public RoleEnum Role { get; private set; }
     
-    public Core.Entities.User ToEntity()
-        => new Core.Entities.User(FullName, Email, HashPassword, Phone, MobilePhone, Cpf, Rg, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
+    public Core.Entities.Customer ToEntity()
+        => new Core.Entities.Customer(FullName, Email, HashPassword, Phone, MobilePhone, Document, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
 }

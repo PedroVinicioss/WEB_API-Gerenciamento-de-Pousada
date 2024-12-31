@@ -4,18 +4,18 @@ using GerenciadorHotel.Application.Models;
 using GerenciadorHotel.Infrastructure.Persistence;
 using MediatR;
 
-namespace GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
+namespace GerenciadorHotel.Application.Interfaces.Customers.Commands.CreateCustomer;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ResultViewModel<int>>
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, ResultViewModel<int>>
 {
     private readonly AppDbContext _context;
 
-    public CreateUserCommandHandler(AppDbContext context)
+    public CreateCustomerCommandHandler(AppDbContext context)
     {
         _context = context;
     }
 
-    public async Task<ResultViewModel<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<int>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         var hashedPassword = DoHash(request.Password);
 

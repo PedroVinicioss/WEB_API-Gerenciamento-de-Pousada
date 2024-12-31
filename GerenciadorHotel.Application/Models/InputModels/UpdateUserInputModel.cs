@@ -9,8 +9,7 @@ public class UpdateUserInputModel
     public string FullName { get; set; }
     public string Email { get; set; }
     public string Password { get; private set; }
-    public string Cpf { get; private set; }
-    public string Rg { get; private set; }
+    public string Document { get; private set; }
     // Personal Info
     public string? Phone { get; set; }
     public string MobilePhone { get; set; }
@@ -30,6 +29,6 @@ public class UpdateUserInputModel
     public DateTime BirthDate { get; set; }
     public BiologicalSexEnum BiologicalSex { get; set; }
     
-    public User ToEntity()
-        => new(FullName, Email, Password, Phone, MobilePhone, Cpf, Rg, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
+    public Customer ToEntity()
+        => new(FullName, Email, Password, Phone, MobilePhone, Document, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
 }

@@ -2,20 +2,19 @@
 using GerenciadorHotel.Core.Enums;
 using MediatR;
 
-namespace GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
+namespace GerenciadorHotel.Application.Interfaces.Customers.Commands.CreateCustomer;
 
-public class CreateUserCommand : IRequest<ResultViewModel<int>>
+public class CreateCustomerCommand : IRequest<ResultViewModel<int>>
 {
     //constructor
-    public CreateUserCommand(string fullName, string email, string password, string phone, string mobilePhone, string cpf, string rg, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex, RoleEnum role)
+    public CreateCustomerCommand(string fullName, string email, string password, string phone, string mobilePhone, string document, string profession, string postalCode, string city, string state, string country, string address, string neighborhood, int number, string addressComplement, DateTime birthDate, BiologicalSexEnum biologicalSex)
     {
         FullName = fullName;
         Email = email;
         Password = password;
         Phone = phone;
         MobilePhone = mobilePhone;
-        Cpf = cpf;
-        Rg = rg;
+        Document = document;
         Profession = profession;
         PostalCode = postalCode;
         City = city;
@@ -27,7 +26,6 @@ public class CreateUserCommand : IRequest<ResultViewModel<int>>
         AddressComplement = addressComplement;
         BirthDate = birthDate;
         BiologicalSex = biologicalSex;
-        Role = role;
     }
     
     // User Info
@@ -38,8 +36,7 @@ public class CreateUserCommand : IRequest<ResultViewModel<int>>
     // Personal Info
     public string? Phone { get; set; }
     public string MobilePhone { get; set; }
-    public string Cpf { get; set; }
-    public string Rg { get; set; }
+    public string Document { get; set; }
     public string? Profession { get; set; }
 
     
@@ -56,8 +53,7 @@ public class CreateUserCommand : IRequest<ResultViewModel<int>>
     public DateTime BirthDate { get; set; }
     public BiologicalSexEnum BiologicalSex { get; set; }
 
-    public RoleEnum Role { get; set; }
     
-    public Core.Entities.User ToEntity()
-        => new(FullName, Email, Password, Phone, MobilePhone, Cpf, Rg, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex, Role);
+    public Core.Entities.Customer ToEntity()
+        => new(FullName, Email, Password, Phone, MobilePhone, Document, Profession, PostalCode, City, State, Country, Address, Neighborhood, Number, AddressComplement, BirthDate, BiologicalSex);
 }

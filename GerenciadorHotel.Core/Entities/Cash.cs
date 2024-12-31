@@ -24,7 +24,7 @@ public class Cash : BaseEntity
     public decimal TotalCash { get; private set; }
     public string Month { get; private set; }
     public int IdAdmin { get; private set; }
-    public User Admin { get; private set; }
+    public Admin Admin { get; private set; }
     public List<Reservation> Reservations { get; private set; }
     
     public void Update (Cash cash)

@@ -2,25 +2,25 @@
 using GerenciadorHotel.Infrastructure.Persistence;
 using MediatR;
 
-namespace GerenciadorHotel.Application.Interfaces.User.Commands.CreateUser;
+namespace GerenciadorHotel.Application.Interfaces.Customers.Commands.CreateCustomer;
 
-public class ValidateCreateUserCommandBehavior : IPipelineBehavior<CreateUserCommand, ResultViewModel<int>>
+public class ValidateCreateCustomerCommandBehavior : IPipelineBehavior<CreateCustomerCommand, ResultViewModel<int>>
 {
     private AppDbContext _context;
 
-    public ValidateCreateUserCommandBehavior(AppDbContext context)
+    public ValidateCreateCustomerCommandBehavior(AppDbContext context)
     {
         _context = context;
     }
     
-    public async Task<ResultViewModel<int>> Handle(CreateUserCommand request, RequestHandlerDelegate<ResultViewModel<int>> next, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<int>> Handle(CreateCustomerCommand request, RequestHandlerDelegate<ResultViewModel<int>> next, CancellationToken cancellationToken)
     {
         // Validação: email único
         if (_context.Users.Any(u => u.Email == request.Email))
             return ResultViewModel<int>.Error("Email já cadastrado");
 
         // Validação: CPF único
-        if (_context.Users.Any(u => u.Cpf == request.Cpf))
+        if (_context.Users.Any(u => u.Document == request.Document))
             return ResultViewModel<int>.Error("CPF já cadastrado");
 
         // Validação de senha

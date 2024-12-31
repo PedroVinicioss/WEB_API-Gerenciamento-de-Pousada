@@ -3,17 +3,17 @@ using GerenciadorHotel.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace GerenciadorHotel.Application.Interfaces.User.Commands.UpdateUser;
+namespace GerenciadorHotel.Application.Interfaces.Customers.Commands.UpdateCustomer;
 
-public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResultViewModel>
+public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, ResultViewModel>
 {
     private readonly AppDbContext _context;
     
-    public UpdateUserCommandHandler(AppDbContext context)
+    public UpdateCustomerCommandHandler(AppDbContext context)
     {
         _context = context;
     }
-    public async Task<ResultViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == request.Id);
         if(user is null)
