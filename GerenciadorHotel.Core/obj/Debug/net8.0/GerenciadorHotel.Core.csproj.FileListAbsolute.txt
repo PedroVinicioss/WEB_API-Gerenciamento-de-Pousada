@@ -1,0 +1,12 @@
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/bin/Debug/net8.0/GerenciadorHotel.Core.deps.json
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/bin/Debug/net8.0/GerenciadorHotel.Core.dll
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/bin/Debug/net8.0/GerenciadorHotel.Core.pdb
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.AssemblyInfoInputs.cache
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.AssemblyInfo.cs
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.csproj.CoreCompileInputs.cache
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.sourcelink.json
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.dll
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/refint/GerenciadorHotel.Core.dll
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/GerenciadorHotel.Core.pdb
+/home/pedrovinicios/Documents/Projecs .NET/WEB_API-Gerenciamento-de-Pousada/GerenciadorHotel.Core/obj/Debug/net8.0/ref/GerenciadorHotel.Core.dll

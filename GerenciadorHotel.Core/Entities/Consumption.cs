@@ -1,9 +1,7 @@
 ﻿namespace GerenciadorHotel.Core.Entities;
 
 public class Consumption : BaseEntity
-{
-    protected Consumption() { }
-    
+{    
     public Consumption(int idReservation, int idProduct, int quantity, decimal value, DateTime consumptionDate)
         : base()
     {
