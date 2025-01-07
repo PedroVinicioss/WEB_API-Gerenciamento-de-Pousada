@@ -1,4 +1,8 @@
-﻿using GerenciadorHotel.Application.Interfaces.Cash.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Cash.Commands.DeleteCash;
+using GerenciadorHotel.Application.Interfaces.Cash.Commands.UpdateCash;
+using GerenciadorHotel.Application.Interfaces.Cash.Queries.GetAllCash;
+using GerenciadorHotel.Application.Interfaces.Cash.Queries.GetCashById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -7,50 +11,51 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/cash")]
 public class CashController : Controller
 {
-    private ICashService _cashService;
+    private IMediator _mediator;
     
-    public CashController(ICashService cashService)
+    public CashController(IMediator mediator)
     {
-        _cashService = cashService;
+        _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public IActionResult GetAll(string search = "")
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var result = _cashService.GetAll(search);
+        var result = await _mediator.Send(new GetAllCashQuery(search));
         return Ok(result);
     }
 
     // GET
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var result = _cashService.GetById(id);
+        var result = await _mediator.Send(new GetCashByIdQuery(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
         return Ok(result);
     }
     
-    // POST
-    [HttpPost]
-    public IActionResult Post()
-    {
-        return Ok();
-    }
-    
     // PUT
     [HttpPut("{id}")]
-    public IActionResult Put(int id)
+    public async Task<IActionResult> Put(UpdateCashCommand command)
     {
-        return Ok();
+        var result = await _mediator.Send(command);
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return Ok(result);
     }
     
     // DELETE
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        return Ok();
+        var result = await _mediator.Send(new DeleteCashCommand(id));
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return Ok(result);
     }
 }

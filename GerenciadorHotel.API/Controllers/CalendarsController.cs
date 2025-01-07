@@ -1,4 +1,6 @@
-﻿using GerenciadorHotel.Application.Interfaces.Calendary.Services;
+﻿using GerenciadorHotel.Application.Interfaces.Calendary.Commands.GenerateCalendaryForRoom;
+using GerenciadorHotel.Application.Interfaces.Calendary.Queries.GetCalendaryByRoomId;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
@@ -7,29 +9,34 @@ namespace GerenciadorHotel.API.Controllers;
 [Route("api/calendars")]
 public class CalendarsController : ControllerBase
 {
-    private readonly ICalendaryService _calendaryService;
+    private readonly IMediator _mediator;
 
-    public CalendarsController(ICalendaryService calendaryService)
+    public CalendarsController(IMediator mediator)
     {
-        _calendaryService = calendaryService;
+        _mediator = mediator;
     }
     
     [HttpPost("generate")]
-    public IActionResult GenerateCalendaryForRoom(int roomId, DateTime startDate, DateTime endDate)
+    public async Task<IActionResult> GenerateCalendaryForRoom(int idRoom, DateTime startDate, DateTime endDate, int idAdmin)
     {
         if (startDate > endDate)
-        {
             return BadRequest("A data de início não pode ser maior que a data de término.");
-        }
+        
 
-        _calendaryService.GenerateCalendaryForRoom(roomId, startDate, endDate);
+        var result = await _mediator.Send(new GenerateCalendaryForRoomCommand(idRoom, startDate, endDate, idAdmin));
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
         return Ok("Calendário gerado com sucesso.");
     }
     
     [HttpGet]
-    public IActionResult GetCalendary(int roomId)
+    public async Task<IActionResult> GetCalendary(int roomId)
     {
-        var calendary = _calendaryService.GetCalendaryForRoom(roomId);
-        return Ok(calendary);
+        var result = await _mediator.Send(new GetCalendaryByRoomIdQuery(roomId));
+        if (!result.IsSuccess)
+            return BadRequest(result.Message);
+        
+        return Ok(result.Data);
     }
 }

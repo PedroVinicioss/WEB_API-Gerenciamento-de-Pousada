@@ -1,37 +1,36 @@
-﻿using GerenciadorHotel.Application.Interfaces.Consumption.Commands.CreateConsumption;
-using GerenciadorHotel.Application.Interfaces.Consumption.Commands.DeleteConsumption;
-using GerenciadorHotel.Application.Interfaces.Consumption.Commands.UpdateConsumption;
-using GerenciadorHotel.Application.Interfaces.Consumption.Queries.GetAllConsumptions;
-using GerenciadorHotel.Application.Interfaces.Consumption.Queries.GetConsumptionsById;
+﻿using GerenciadorHotel.Application.Interfaces.Customers.Commands.CreateCustomer;
+using GerenciadorHotel.Application.Interfaces.Customers.Commands.DeleteCustomer;
+using GerenciadorHotel.Application.Interfaces.Customers.Commands.UpdateCustomer;
+using GerenciadorHotel.Application.Interfaces.Customers.Queries.GetAllCustomers;
+using GerenciadorHotel.Application.Interfaces.Customers.Queries.GetCustomerById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorHotel.API.Controllers;
 
 [ApiController]
-[Route("api/consumptions")]
-public class ConsumptionsController : ControllerBase
+[Route("api/users")]
+public class CustomersController : ControllerBase
 {
-    private IMediator _mediator;
-    
-    public ConsumptionsController(IMediator mediator)
+    private readonly IMediator _mediator;
+    public CustomersController( IMediator mediator)
     {
         _mediator = mediator;
     }
     
     // GET
     [HttpGet]
-    public async Task<IActionResult> GetAll(string search)
+    public async Task<IActionResult> GetAll(string search = "")
     {
-        var result = await _mediator.Send(new GetAllConsumptionsQuery(search));
-        return Ok(result);
+        var results = await _mediator.Send(new GetAllCustomersQuery(search));
+        return Ok(results);
     }
-
+    
     // GET
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _mediator.Send(new GetConsumptionsByIdQuery(id));
+        var result = await _mediator.Send(new GetCustomerByIdQuery(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         
@@ -40,7 +39,7 @@ public class ConsumptionsController : ControllerBase
     
     // POST
     [HttpPost]
-    public async Task<IActionResult> Post(CreateConsumptionCommand command)
+    public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
         var result = await _mediator.Send(command);
         if (!result.IsSuccess)
@@ -51,7 +50,7 @@ public class ConsumptionsController : ControllerBase
     
     // PUT
     [HttpPut]
-    public async Task<IActionResult> Put(UpdateConsumptionCommand command)
+    public async Task<IActionResult> Put(UpdateCustomerCommand command)
     {
         var result = await _mediator.Send(command);
         if (!result.IsSuccess)
@@ -64,7 +63,8 @@ public class ConsumptionsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _mediator.Send(new DeleteConsumptionCommand(id));
+        //var result = _userService.Delete(id);
+        var result = await _mediator.Send(new DeleteCustomerCommand(id));
         if (!result.IsSuccess)
             return BadRequest(result.Message);
         

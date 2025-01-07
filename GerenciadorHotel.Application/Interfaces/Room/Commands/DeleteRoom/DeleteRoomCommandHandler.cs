@@ -16,7 +16,7 @@ public class DeleteRoomCommandHandler : IRequestHandler<DeleteRoomCommand, Resul
     
     public async Task<ResultViewModel> Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
     {
-        var room = await _context.Rooms.SingleOrDefaultAsync(r => r.Id == request.Id);
+        var room = await _context.Rooms.SingleOrDefaultAsync(r => r.Id == request.Id, cancellationToken: cancellationToken);
         if (room is null)
             return ResultViewModel.Error("Quarto não encontrado.");
         
